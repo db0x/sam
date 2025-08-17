@@ -1,6 +1,4 @@
 # SAM Simple Arc42 Markdown
-
-```ascii
    _______   __  ___                                                                             
   / __/ _ | /  |/  /                                                                             
  _\ \/ __ |/ /|_/ /                                                                              
@@ -9,8 +7,6 @@
  _\ \/ /  ' \/ _ \/ / -_)___/ __ |/ __/ __/_  _/ __/___/ /|_/ / _ `/ __/  '_/ _  / _ \ |/|/ / _ \
 /___/_/_/_/_/ .__/_/\__/   /_/ |_/_/  \__/ /_//____/  /_/  /_/\_,_/_/ /_/\_\\_,_/\___/__,__/_//_/
            /_/                                                                                   
-
-```
 
 * _One-click_ solution for providing markdown documentation as HTML. (`docker`-container)
 * Optimized for creating `arc42`-based documentation.
