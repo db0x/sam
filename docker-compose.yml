@@ -1,0 +1,11 @@
+services:
+  web:
+    image: nginx:latest
+    container_name: sam
+    ports:
+      - "8080:80"
+    volumes:
+      - ./web:/usr/share/nginx/html:rw
+      - ./content:/content:ro
+    command: /bin/sh -c "ln -sfn /content /usr/share/nginx/html/content && nginx -g 'daemon off;'"
+    restart: unless-stopped
