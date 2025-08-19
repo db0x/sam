@@ -12,7 +12,7 @@ Good luck with creating your architectural documentation as it should be!
 ![](/content/02-Architecture_Constraints.md)
 ![](/content/03-Context_and_Scope.md)
 ![](/content/04-Solution_Strategy.md)
-![](/content/05-Building_Block_View%20.md)
+![](/content/05-Building_Block_View.md)
 ![](/content/06-Runtime_View.md)
 ![](/content/07-Deployment_View.md)
 ![](/content/08-Cross-cutting_Concepts.md)
