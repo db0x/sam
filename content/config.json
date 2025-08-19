@@ -1,4 +1,5 @@
 {
-    "title":"SAM - Simple-arc42-markdown",
-    "startDocument":"arc42.md"
+    "title":"sam simple-arc42-markdown",
+    "startDocument":"arc42.md",
+    "tocDepth": 2
 }

@@ -1,13 +1,10 @@
 body {
-    background-color: #f6f8fa;
     display: flex;
     font-family: Arial, sans-serif;
     margin: 0;
 }
 nav {
     width: 250px;
-    background: #fff;
-    border-right: 1px solid #ddd;
     padding-left: 1em;
     padding-right: 1em;
     overflow-y: auto;
@@ -24,7 +21,7 @@ nav ul {
     padding-left: 0;
 }
 nav ul li {
-    margin: 0.3em 0;
+    margin: 0.6em 0;
 }
 nav a {
     text-decoration: none;
@@ -43,9 +40,7 @@ main {
     max-width: 1200px;
     margin: auto;
     padding: 2em;
-    background: white;
     border-radius: 6px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.1);
 }
 img {
     max-width: 100%;
@@ -72,8 +67,14 @@ img {
     .page-break {
         page-break-before: always; 
     }
+    main {
+        padding: 0;
+    }
     @page {
-        margin: 20mm;
+        margin-top: 20mm;
+        margin-left: 20mm;
+        margin-right: 20mm;
+        margin-bottom: 20mm;
         @bottom-center {
             content: "Page " counter(page) " of " counter(pages);
             font-family: Arial, sans-serif;
