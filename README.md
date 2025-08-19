@@ -1,4 +1,4 @@
-# SAM Simple Arc42 Markdown
+# sam simple-arc42-markdown
 
 ``` 
        _            __                     ____ ___ 
