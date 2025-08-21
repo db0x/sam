@@ -51,4 +51,5 @@ docker-compose up -d
 * includes with more layers 
 * direct PlantUML support
 * print-support with settings
+* auto-glossary in md
 * ...
