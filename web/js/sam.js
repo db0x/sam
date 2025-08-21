@@ -35,10 +35,10 @@ async function createGlossary(full) {
     let match;
     while ((match = regex.exec(full)) !== null) {
         const term = match[1];        
-        const beschreibung = match[2];
-        lines.push("|"+term+"|"+beschreibung+"|");
+        const definition = match[2];
+        lines.push("|"+term+"|"+definition+"|");
 
-        result = result.replaceAll("`"+term+"`("+beschreibung+")", "`"+term+"`");
+        result = result.replaceAll("`"+term+"`("+definition+")", "`"+term+"`");
     }
 
     return result + "\n" + lines.join("\n");
