@@ -26,6 +26,15 @@ async function resolveIncludes(outer) {
     return result;
 }
 
+function anchor(term) {
+  return term
+    .toLowerCase()
+    .normalize("NFD") 
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-") 
+    .replace(/^-+|-+$/g, ""); 
+}
+
 async function createGlossary(full) {
     result = full;  
     var lines = ["| Term        | Definition |",
@@ -36,9 +45,15 @@ async function createGlossary(full) {
     while ((match = regex.exec(full)) !== null) {
         const term = match[1];        
         const definition = match[2];
-        lines.push("|"+term+"|"+definition+"|");
+        
+        lines.push("|<a id="+anchor(term)+"></a>"+term+"|"+definition+"|");
 
-        result = result.replaceAll("`"+term+"`("+definition+")", "`"+term+"`");
+        if (config.autoGlossary.strict) {
+            result = result.replaceAll("`"+term+"`("+definition+")",term);
+            result = result.replaceAll(term, "[`"+term+"`](#"+anchor(term)+")");
+        } else {
+            result = result.replaceAll("`"+term+"`("+definition+")", "[`"+term+"`](#"+anchor(term)+")");
+        }
     }
 
     return result + "\n" + lines.join("\n");
@@ -46,7 +61,7 @@ async function createGlossary(full) {
 
 async function render(md) {
     var full = await resolveIncludes(md);
-    if (config.autoGlossary) {
+    if (config.autoGlossary.active) {
         full = await createGlossary(full);
     }
     const html = marked.parse(full);

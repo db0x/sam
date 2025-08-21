@@ -1,6 +1,9 @@
 {
     "title":"sam simple-arc42-markdown",
     "startDocument":"arc42.md",
-    "autoGlossary": false,
+    "autoGlossary": {
+        "active": true,
+        "strict": true
+    },
     "tocDepth": 2
 }

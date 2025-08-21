@@ -1,0 +1,90 @@
+[1mdiff --git a/content/01-Introduction_and_Goals.md b/content/01-Introduction_and_Goals.md[m
+[1mindex 16ec3fa..bc13032 100644[m
+[1m--- a/content/01-Introduction_and_Goals.md[m
+[1m+++ b/content/01-Introduction_and_Goals.md[m
+[36m@@ -3,7 +3,7 @@[m
+ > Describes the relevant requirements and the driving forces that software architects and development team must consider. These include[m
+ >[m
+ > * underlying business goals, essential features and  functional requirements for the system,[m
+[31m-> * quality goals for the architecture,[m
+[32m+[m[32m> * `quality goal`(A quality goal is a high-level, measurable objective that defines a desired non-functional property of a software system e.g., performance, security, or maintainability and guides architectural decisions to achieve it.)s for the architecture,[m
+ > * relevant stakeholders and their expectations[m
+ [m
+ ## 1.1 Requirements Overview[m
+[1mdiff --git a/content/arc42.md b/content/arc42.md[m
+[1mindex 2698f68..067881c 100644[m
+[1m--- a/content/arc42.md[m
+[1m+++ b/content/arc42.md[m
+[36m@@ -2,7 +2,7 @@[m
+ [m
+ Based on the template from arc42. There is no better way to summarize the purpose:[m
+ [m
+[31m-> All you ever need to construct, **communicate and document your software architecture**. Proven, **practical and pragmatic**. Free and open source, **takes the pain out of documentation**. [arc42.org](https://arc42.org/)[m
+[32m+[m[32m> All you ever need to construct, **communicate and document your software architecture**. Proven, **practical and pragmatic**. Free and open source, **takes the pain out of documentation**. \([arc42.org](https://arc42.org/)\)[m
+ [m
+ The 12 chapters of the template with introductory descriptions are created as `includes` and can be edited in a structured manner.[m
+ [m
+[1mdiff --git a/content/config.json b/content/config.json[m
+[1mindex 4e5f598..e97fd72 100644[m
+[1m--- a/content/config.json[m
+[1m+++ b/content/config.json[m
+[36m@@ -1,6 +1,9 @@[m
+ {[m
+     "title":"sam simple-arc42-markdown",[m
+     "startDocument":"arc42.md",[m
+[31m-    "autoGlossary": false,[m
+[32m+[m[32m    "autoGlossary": {[m
+[32m+[m[32m        "active": true,[m
+[32m+[m[32m        "strict": true[m
+[32m+[m[32m    },[m
+     "tocDepth": 2[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/web/js/sam.js b/web/js/sam.js[m
+[1mindex a2e05fd..ca625b7 100644[m
+[1m--- a/web/js/sam.js[m
+[1m+++ b/web/js/sam.js[m
+[36m@@ -26,6 +26,15 @@[m [masync function resolveIncludes(outer) {[m
+     return result;[m
+ }[m
+ [m
+[32m+[m[32mfunction anchor(term) {[m
+[32m+[m[32m  return term[m
+[32m+[m[32m    .toLowerCase()[m
+[32m+[m[32m    .normalize("NFD")[m[41m [m
+[32m+[m[32m    .replace(/[\u0300-\u036f]/g, "")[m
+[32m+[m[32m    .replace(/[^a-z0-9]+/g, "-")[m[41m [m
+[32m+[m[32m    .replace(/^-+|-+$/g, "");[m[41m [m
+[32m+[m[32m}[m
+[32m+[m
+ async function createGlossary(full) {[m
+     result = full;  [m
+     var lines = ["| Term        | Definition |",[m
+[36m@@ -36,9 +45,15 @@[m [masync function createGlossary(full) {[m
+     while ((match = regex.exec(full)) !== null) {[m
+         const term = match[1];        [m
+         const definition = match[2];[m
+[31m-        lines.push("|"+term+"|"+definition+"|");[m
+[31m-[m
+[31m-        result = result.replaceAll("`"+term+"`("+definition+")", "`"+term+"`");[m
+[32m+[m[41m        [m
+[32m+[m[32m        lines.push("|<a id="+anchor(term)+"></a>"+term+"|"+definition+"|");[m
+[32m+[m
+[32m+[m[32m        if (config.autoGlossary.strict) {[m
+[32m+[m[32m            result = result.replaceAll("`"+term+"`("+definition+")",term);[m
+[32m+[m[32m            result = result.replaceAll(term, "[`"+term+"`](#"+anchor(term)+")");[m
+[32m+[m[32m        } else {[m
+[32m+[m[32m            result = result.replaceAll("`"+term+"`("+definition+")", "[`"+term+"`](#"+anchor(term)+")");[m
+[32m+[m[32m        }[m
+     }[m
+ [m
+     return result + "\n" + lines.join("\n");[m
+[36m@@ -46,7 +61,7 @@[m [masync function createGlossary(full) {[m
+ [m
+ async function render(md) {[m
+     var full = await resolveIncludes(md);[m
+[31m-    if (config.autoGlossary) {[m
+[32m+[m[32m    if (config.autoGlossary.active) {[m
+         full = await createGlossary(full);[m
+     }[m
+     const html = marked.parse(full);[m
