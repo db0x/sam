@@ -1,4 +1,6 @@
 let startDocument = "";
+let config;
+
 async function loadMarkdown(path) {
     const response = await fetch(path); 
     return await response.text();  
@@ -7,6 +9,7 @@ async function loadMarkdown(path) {
 async function resolveIncludes(outer) {
     
     const includeRegex = /!\[\]\(([^)]+\.md)\)/g;
+
     let match;
     let result = outer;
     const replacements = [];
@@ -23,8 +26,29 @@ async function resolveIncludes(outer) {
     return result;
 }
 
+async function createGlossary(full) {
+    result = full;  
+    var lines = ["| Term        | Definition |",
+                 "|-------------|------------|"];
+    
+    const regex = /`([^`]+)`\(([^)]+)\)/g;
+    let match;
+    while ((match = regex.exec(full)) !== null) {
+        const term = match[1];        
+        const beschreibung = match[2];
+        lines.push("|"+term+"|"+beschreibung+"|");
+
+        result = result.replaceAll("`"+term+"`("+beschreibung+")", "`"+term+"`");
+    }
+
+    return result + "\n" + lines.join("\n");
+}
+
 async function render(md) {
-    const full = await resolveIncludes(md);
+    var full = await resolveIncludes(md);
+    if (config.autoGlossary) {
+        full = await createGlossary(full);
+    }
     const html = marked.parse(full);
     document.getElementById('content').innerHTML = html;    
 }
@@ -44,13 +68,14 @@ async function generateToc() {
         toc.appendChild(li);
     });   
 }
+
 async function loadConfig() {
     try {
         const response = await fetch("content/config.json"); 
         if (!response.ok) {
             throw new Error("Config konnte nicht geladen werden: " + response.status);
         }
-        const config = await response.json();
+        config = await response.json();
 
         if (config.title) {
             document.title = config.title; 
@@ -61,6 +86,7 @@ async function loadConfig() {
         console.error(err);
     }
 }
+
 async function main() {
     try {
         await loadConfig();
