@@ -56,7 +56,12 @@ example:
 * Adds the term `server` to the glossary with the description.
 
 ```md
-This is a longer text about `servers`{In software architecture, a server is a system or component that provides services, data, or functionality to other components (clients) over a network. It typically manages requests, processes them, and returns responses according to a defined protocol.} and what you can do with them.
+This is a longer text about `servers`{In software architecture,
+a server is a system or component that provides services, data,
+or functionality to other components (clients) over a network.
+It typically manages requests, processes them,
+and returns responses according to a defined protocol.} and 
+what you can do with them.
 ```
 
 The occurrence of the term is replaced in the text by a link to the term in the glossary, and the description in the glossary is taken over by curly brackets.
