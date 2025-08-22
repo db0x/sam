@@ -3,7 +3,8 @@
     "startDocument":"arc42.md",
     "autoGlossary": {
         "active": true,
-        "strict": true
+        "strict": true,
+        "mixIn": false
     },
     "tocDepth": 2
 }

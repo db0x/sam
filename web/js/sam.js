@@ -40,7 +40,7 @@ async function createGlossary(full) {
     var lines = ["| Term        | Definition |",
                  "|-------------|------------|"];
     
-    const regex = /`([^`]+)`\(([^)]+)\)/g;
+    const regex = /`([^`]+)`\{([^}]+)\}/g;
     let match;
     while ((match = regex.exec(full)) !== null) {
         const term = match[1];        
@@ -49,10 +49,10 @@ async function createGlossary(full) {
         lines.push("|<a id="+anchor(term)+"></a>"+term+"|"+definition+"|");
 
         if (config.autoGlossary.strict) {
-            result = result.replaceAll("`"+term+"`("+definition+")",term);
+            result = result.replaceAll("`"+term+"`{"+definition+"}",term);
             result = result.replaceAll(term, "[`"+term+"`](#"+anchor(term)+")");
         } else {
-            result = result.replaceAll("`"+term+"`("+definition+")", "[`"+term+"`](#"+anchor(term)+")");
+            result = result.replaceAll("`"+term+"`{"+definition+"}", "[`"+term+"`](#"+anchor(term)+")");
         }
     }
 

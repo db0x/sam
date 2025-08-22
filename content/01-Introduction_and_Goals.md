@@ -3,7 +3,7 @@
 > Describes the relevant requirements and the driving forces that software architects and development team must consider. These include
 >
 > * underlying business goals, essential features and  functional requirements for the system,
-> * `quality goal`(A quality goal is a high-level, measurable objective that defines a desired non-functional property of a software system e.g., performance, security, or maintainability and guides architectural decisions to achieve it.)s for the architecture,
+> * `quality goal`{A quality goal is a high-level, measurable objective that defines a desired non-functional property of a software system e.g., performance, security, or maintainability and guides architectural decisions to achieve it.}s for the architecture,
 > * relevant stakeholders and their expectations
 
 ## 1.1 Requirements Overview
