@@ -53,10 +53,10 @@ This feature is always active and does not need to be configured.
 With `sam`, it is possible to create a glossary from the documentation. To do this, you must specify the term and description in a specific syntax (once) in the text. The term is then automatically added to the glossary at the end of arc42.
 
 example:
-* Adds the term `server` to the glossary with the description.
+* Adds the term `server` to the glossary with the description in `{}` direct after the term.
 
 ```md
-This is a longer text about `servers`{In software architecture,
+This is a longer text about `server`{In software architecture,
 a server is a system or component that provides services, data,
 or functionality to other components (clients) over a network.
 It typically manages requests, processes them,
