@@ -10,10 +10,11 @@
 /_/_/_/\_,_/_/ /_/\_\\_,_/\___/__,__/_//_/          
                                                     
 ```                                          
-* _One-click_ solution for providing markdown documentation as HTML. (`docker`-container)
+* _One-click_ solution for providing markdown documentation as HTML in a docker-container nginx based.
 * Optimized for creating `arc42`-based documentation.
 * `include` feature to get better structure of your documentation.
 * Improved printing to PDF and paper.
+* automatic handling of glossary
 
 ## Get started
 

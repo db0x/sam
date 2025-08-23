@@ -4,8 +4,7 @@
     "autoGlossary": {
         "active": true,
         "strict": true,
-        "mixIn": false,
-        "glossary": "12-Glossary.md"
+        "mixIn": false
     },
     "tocDepth": 2
 }
