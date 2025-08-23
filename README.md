@@ -53,7 +53,7 @@ This feature is always active and does not need to be configured.
 With `sam`, it is possible to create a glossary from the documentation. To do this, you must specify the term and description in a specific syntax (once) in the text. The term is then automatically added to the glossary at the end of arc42.
 
 example:
-* Adds the term `server` to the glossary with the description in `{}` direct after the term.
+* Adds the term `server` to the glossary with the description in `{}` direct after the term. The term self will be replaced with a link to the glossary.
 
 ```md
 This is a longer text about `server`{In software architecture,
@@ -62,6 +62,11 @@ or functionality to other components (clients) over a network.
 It typically manages requests, processes them,
 and returns responses according to a defined protocol.} and 
 what you can do with them.
+```
+
+syntax:
+```
+    `term`{description}
 ```
 
 The occurrence of the term is replaced in the text by a link to the term in the glossary, and the description in the glossary is taken over by curly brackets.
@@ -77,7 +82,7 @@ The occurrence of the term is replaced in the text by a link to the term in the 
 }
 ```
 `autoGlossary.active` = true -> enables the feature\
-`autoGlossary.strict` = true -> replace all matches in the document with a link to the glossary
+`autoGlossary.strict` = true -> replace **all** matches of term in the document with a link to the glossary
 
 ### Optimized to print from browser
 
