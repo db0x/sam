@@ -1,7 +1,7 @@
 let startDocument = "";
 let config;
 
-async function loadMarkdown(path) {
+async function loadFile(path) {
     const response = await fetch(path); 
     return await response.text();  
 }
@@ -15,8 +15,29 @@ async function resolveIncludes(outer) {
     const replacements = [];
     while ((match = includeRegex.exec(outer)) !== null) {
         let importPath = match[1];
-        const importedText = await loadMarkdown(importPath);
+        const importedText = await loadFile(importPath);
         replacements.push({ match: match[0], text: importedText });
+    }
+
+    for (const r of replacements) {
+        result = result.replace(r.match, r.text);
+    }
+
+    return result;
+}
+
+async function resolvePlantUML(outer) {
+    
+    const includeRegex = /!\[\]\(([^)]+\.wsd)\)/g;
+
+    let match;
+    let result = outer;
+    const replacements = [];
+    while ((match = includeRegex.exec(outer)) !== null) {
+        let importPath = match[1];
+        const importedText = await loadFile(importPath);
+        const uml = await renderPlantUML(importedText);
+        replacements.push({ match: match[0], text: uml });
     }
 
     for (const r of replacements) {
@@ -60,10 +81,13 @@ async function createGlossary(full) {
 }
 
 async function render(md) {
-    var full = await resolveIncludes(md);
+    var full;
+    full = await resolveIncludes(md);   
+    full = await resolvePlantUML(full);
     if (config.autoGlossary.active) {
         full = await createGlossary(full);
     }
+
     const html = marked.parse(full);
     document.getElementById('content').innerHTML = html;    
 }
@@ -82,6 +106,21 @@ async function generateToc() {
         li.appendChild(a);
         toc.appendChild(li);
     });   
+}
+
+async function renderPlantUML(umlText, server = config.plantUMLServer) {
+    const res = await fetch(server, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain" },
+        body: umlText
+      });
+
+      if (!res.ok) {
+        const errText = await res.text().catch(() => "");
+        throw new Error(`Rendering fehlgeschlagen (${res.status}): ${errText}`);
+      }
+      
+      return await res.text();
 }
 
 async function loadConfig() {
@@ -106,7 +145,7 @@ async function main() {
     try {
         await loadConfig();
 
-        const md = await loadMarkdown('content/'+ startDocument);
+        const md = await loadFile('content/'+ startDocument);
         await render(md);
         await generateToc();
 

@@ -13,6 +13,7 @@
 * _One-click_ solution for providing markdown documentation as HTML in a docker-container nginx based.
 * Optimized for creating `arc42`-based documentation.
 * `include` feature to get better structure of your documentation.
+* `include` automatic rendered plantUML diagrams into your document.
 * Improved printing to PDF and paper.
 * automatic handling of glossary
 
@@ -48,6 +49,28 @@ example:
 ![](/content/01-Introduction_and_Goals.md) 
 ```
 This feature is always active and does not need to be configured.
+
+### Include .wsd (plantUML code)
+
+With `sam`, it is possible to embed plantUML code directly into the main document.
+The plantUML diagram will be rendered and embedded as an `svg` in the html.
+
+example:
+* include rendered svg of `/content/assets/plantUML/06-example.wsd` to this place.
+
+```md
+![](/content/assets/plantUML/06-example.wsd)
+```
+#### Configuration 
+
+```json
+{
+    ..
+    "plantUMLServer":"https://kroki.io/plantuml/svg",
+    ..
+}
+```
+`plantUMLServer` = "https://kroki.io/plantuml/svg" -> server to render plantUML to svg. **in future this will be deployed as docker-container local**
 
 ### Auto-glossary 
 
@@ -102,6 +125,5 @@ Its core function is to provide arc42 architecture documentation that can be eas
 ## Soon ....
 
 * includes with more layers 
-* direct PlantUML support
 * print-support with settings
 
