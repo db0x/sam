@@ -64,10 +64,8 @@ example:
 #### Configuration 
 
 ```json
-{
-    ..
-    "plantUMLServer":"https://kroki.io/plantuml/svg",
-    ..
+{    
+    "plantUMLServer":"https://kroki.io/plantuml/svg"    
 }
 ```
 `plantUMLServer` = "https://kroki.io/plantuml/svg" -> server to render plantUML to svg. **in future this will be deployed as docker-container local**
