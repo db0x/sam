@@ -64,11 +64,13 @@ example:
 #### Configuration 
 
 ```json
-{    
-    "plantUMLServer":"https://kroki.io/plantuml/svg"    
-}
+    "plantUML": {
+        "active": true,
+        "server":"https://kroki.io/plantuml/svg"
+    }
 ```
-`plantUMLServer` = "https://kroki.io/plantuml/svg" -> server to render plantUML to svg. **in future this will be deployed as docker-container local**
+`plantUML.active` = true -> enables the feature\
+`plantUML.server` = "https://kroki.io/plantuml/svg" -> server to render plantUML to svg. **in future this will be deployed as docker-container local**
 
 ### Auto-glossary 
 

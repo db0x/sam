@@ -1,10 +1,8 @@
 let startDocument = "";
-let config;
 
-async function loadFile(path) {
-    const response = await fetch(path); 
-    return await response.text();  
-}
+import { loadFile } from './file.js';
+import { resolvePlantUML } from './plantuml.js';
+import { config, loadConfig } from './config.js';
 
 async function resolveIncludes(outer) {
     
@@ -26,27 +24,6 @@ async function resolveIncludes(outer) {
     return result;
 }
 
-async function resolvePlantUML(outer) {
-    
-    const includeRegex = /!\[\]\(([^)]+\.wsd)\)/g;
-
-    let match;
-    let result = outer;
-    const replacements = [];
-    while ((match = includeRegex.exec(outer)) !== null) {
-        let importPath = match[1];
-        const importedText = await loadFile(importPath);
-        const uml = await renderPlantUML(importedText);
-        replacements.push({ match: match[0], text: uml });
-    }
-
-    for (const r of replacements) {
-        result = result.replace(r.match, r.text);
-    }
-
-    return result;
-}
-
 function anchor(term) {
   return term
     .toLowerCase()
@@ -57,7 +34,7 @@ function anchor(term) {
 }
 
 async function createGlossary(full) {
-    result = full;  
+    var result = full;  
     var lines = ["| Term        | Definition |",
                  "|-------------|------------|"];
     
@@ -69,7 +46,7 @@ async function createGlossary(full) {
         
         lines.push("|<a id="+anchor(term)+"></a>"+term+"|"+definition+"|");
 
-        if (config.autoGlossary.strict) {
+        if (config().autoGlossary.strict) {
             result = result.replaceAll("`"+term+"`{"+definition+"}",term);
             result = result.replaceAll(term, "[`"+term+"`](#"+anchor(term)+")");
         } else {
@@ -83,8 +60,10 @@ async function createGlossary(full) {
 async function render(md) {
     var full;
     full = await resolveIncludes(md);   
-    full = await resolvePlantUML(full);
-    if (config.autoGlossary.active) {
+    if (config().plantUML.active) {
+        full = await resolvePlantUML(full);
+    }
+    if (config().autoGlossary.active) {
         full = await createGlossary(full);
     }
 
@@ -95,7 +74,7 @@ async function render(md) {
 async function generateToc() {
     const toc = document.getElementById('toc');
     toc.innerHTML = '';
-    document.querySelectorAll('#content h1, #content h2, #content h3').forEach((heading) => {
+    document.querySelectorAll('#content h1, #content h2').forEach((heading) => {
         const id = heading.textContent.trim().toLowerCase().replace(/[^\w]+/g, '-');
         heading.id = id;
         const li = document.createElement('li');
@@ -108,44 +87,12 @@ async function generateToc() {
     });   
 }
 
-async function renderPlantUML(umlText, server = config.plantUMLServer) {
-    const res = await fetch(server, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain" },
-        body: umlText
-      });
-
-      if (!res.ok) {
-        const errText = await res.text().catch(() => "");
-        throw new Error(`Rendering fehlgeschlagen (${res.status}): ${errText}`);
-      }
-      
-      return await res.text();
-}
-
-async function loadConfig() {
-    try {
-        const response = await fetch("content/config.json"); 
-        if (!response.ok) {
-            throw new Error("Config konnte nicht geladen werden: " + response.status);
-        }
-        config = await response.json();
-
-        if (config.title) {
-            document.title = config.title; 
-            startDocument = config.startDocument;
-        }
-    } catch (err) {
-        document.getElementById('content').innerHTML = '<p>Error loading config.json.</p>';
-        console.error(err);
-    }
-}
-
 async function main() {
     try {
         await loadConfig();
 
-        const md = await loadFile('content/'+ startDocument);
+        const md = await loadFile('content/'+ config().startDocument);
+
         await render(md);
         await generateToc();
 
@@ -156,3 +103,4 @@ async function main() {
 }
 
 main();
+

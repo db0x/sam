@@ -6,6 +6,9 @@
         "strict": true,
         "mixIn": false
     },
-    "plantUMLServer":"https://kroki.io/plantuml/svg",
+    "plantUML": {
+        "active": true,
+        "server":"https://kroki.io/plantuml/svg"
+    },
     "tocDepth": 2
 }
