@@ -11,7 +11,7 @@
     },
     "plantUML": {
         "active": true,
-        "server":"https://kroki.io/plantuml/svg"
+        "server":"/plantuml/svg"
     },
     "print": {
         "coverPage": true,

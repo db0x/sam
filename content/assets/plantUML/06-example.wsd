@@ -2,8 +2,8 @@
 participant Alice
 participant Bob
 
-Alice -> Bob : hello()
+Alice -> Bob : helloBob()
 activate Bob
-Bob -> Alice : world()
+Bob -> Alice : helloAlice()
 deactivate Bob
 @enduml

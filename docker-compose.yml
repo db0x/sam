@@ -6,6 +6,13 @@ services:
       - "8080:80"
     volumes:
       - ./web:/usr/share/nginx/html:rw
-      - ./content:/content:ro
+      - ./content:/content:ro      
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
     command: /bin/sh -c "ln -sfn /content /usr/share/nginx/html/content && nginx -g 'daemon off;'"
+    restart: unless-stopped
+  plantuml:
+    image: plantuml/plantuml-server:jetty
+    container_name: plantuml
+    expose:
+      - "8080"
     restart: unless-stopped
