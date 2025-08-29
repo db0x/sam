@@ -87,6 +87,19 @@ async function generateToc() {
     });   
 }
 
+async function processPrintConfig() {
+    if ( !config().print.coverPage ) {
+        document.getElementById("print-cover").style.display = "none";        
+    } else {
+        document.getElementById("cover-image").src = " /content"+ config().print.coverImage;
+        document.getElementById("cover-title").innerText = config().print.coverTitle;
+        document.getElementById("cover-author").innerText = config().author;        
+        document.getElementById("cover-version").innerText = config().version;        
+        document.getElementById("cover-date").innerText =  new Intl.DateTimeFormat(config().locale, {day: '2-digit', month: 'long', year: 'numeric'})
+            .format(new Date());
+    }
+}
+
 async function main() {
     try {
         await loadConfig();
@@ -95,6 +108,7 @@ async function main() {
 
         await render(md);
         await generateToc();
+        await processPrintConfig();
 
     } catch (err) {
         document.getElementById('content').innerHTML = '<p>Error loading Markdown file.</p>';

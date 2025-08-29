@@ -1,5 +1,8 @@
 {
     "title":"sam simple-arc42-markdown",
+    "author": "Max Mustermann",
+    "version": "0.1.0",
+    "locale": "en-US",
     "startDocument":"arc42.md",
     "autoGlossary": {
         "active": true,
@@ -9,6 +12,11 @@
     "plantUML": {
         "active": true,
         "server":"https://kroki.io/plantuml/svg"
+    },
+    "print": {
+        "coverPage": true,
+        "coverTitle": "Arc42 template with description",
+        "coverImage": "/assets/arc42-logo.png"
     },
     "tocDepth": 2
 }

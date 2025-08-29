@@ -54,6 +54,9 @@ img {
 .arc42-logo {
     width: 10rem;
 }
+#print-cover {
+  display: none;
+}
 @media print {
     .markdown-body {
         box-sizing: border-box;
@@ -71,17 +74,52 @@ img {
         padding: 0;
     }
     @page {
-        margin-top: 20mm;
-        margin-left: 20mm;
-        margin-right: 20mm;
-        margin-bottom: 20mm;
+        size: A4 portrait; 
+        margin: 20mm; 
+
         @bottom-center {
             content: "Page " counter(page) " of " counter(pages);
             font-family: Arial, sans-serif;
             font-size: 0.5rem;
         }
-    }      
+    }     
+    @page :first {
+        @bottom-center {
+            content: "";
+        }
+    } 
+    body {
+        display: block;
+        margin: 0;
+    }
+    #print-cover {
+        margin: 0;
+        display: block;
+        width: 210mm;
+        height: 297mm;
+        page-break-after: always;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 24pt;
+        font-weight: bold;
+        text-align: center;
+    }
+    #cover-author {
+        margin-top: 2rem;
+        font-size: medium;
+    }    
+    #cover-version {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-size: small;
+    }
+    #cover-date {
+        font-size: small;
+    }    
 }
+
 @media (max-width: 1400px) {
     nav {
         display: none;
