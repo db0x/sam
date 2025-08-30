@@ -66,11 +66,11 @@ example:
 ```json
     "plantUML": {
         "active": true,
-        "server":"https://kroki.io/plantuml/svg"
+        "server":"/plantuml/svg"
     }
 ```
 `plantUML.active` = true -> enables the feature\
-`plantUML.server` = "https://kroki.io/plantuml/svg" -> server to render plantUML to svg. **in future this will be deployed as docker-container local**
+`plantUML.server` = "/plantuml/svg" -> endpoint to render plantUML to svg. default usage of a local docker-container. If you need an external server, this can be changed in this place. Our recommendation is to always use the local server, which is offered as the default, whenever possible to prevent data leakage.
 
 ### Auto-glossary 
 
@@ -119,8 +119,9 @@ Its core function is to provide arc42 architecture documentation that can be eas
 
 * docker / docker-compose
 * nginx (docker-container)
+* plantUML container ()
 * marked.js
-
+* puppeteer.js (headless print to pdf)
 
 ## Soon ....
 

@@ -10,9 +10,17 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
     command: /bin/sh -c "ln -sfn /content /usr/share/nginx/html/content && nginx -g 'daemon off;'"
     restart: unless-stopped
+    depends_on:
+      - puppeteer    
   plantuml:
     image: plantuml/plantuml-server:jetty
     container_name: plantuml
     expose:
       - "8080"
     restart: unless-stopped
+  puppeteer:
+    build: ./puppeteer
+    container_name: puppeteer
+    restart: always
+    ports:
+      - "3000:3000"
