@@ -5,13 +5,31 @@ body {
 }
 nav {
     width: 250px;
-    padding-left: 1em;
-    padding-right: 1em;
-    overflow-y: auto;
     position: sticky;
+    overflow-y: auto;
     top: 0;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
+
+nav .top {
+  height: 7rem; 
+  flex-shrink: 0;
+}
+
+nav .middle {
+  flex: 1 1 auto;  
+  overflow-y: auto; 
+}
+
+nav .bottom {
+  height: 3rem;
+  flex-shrink: 0;
+}
+
 nav h2 {
     font-size: 1.2em;
     margin-top: 0;
@@ -29,6 +47,9 @@ nav a {
 }
 nav a:hover {
     text-decoration: underline;
+}
+#nav-footer {
+    height: 3rem;
 }
 main {
     flex: 1;
@@ -116,17 +137,6 @@ img {
     #cover-date {
         font-size: small;
     }    
-}
-
-.footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-  font-size: 10px;
-}
-@page:first {
-  .footer { display: none; } /* funktioniert im PDF-CSS */
 }
 
 @media (max-width: 1400px) {

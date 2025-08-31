@@ -74,17 +74,33 @@ async function render(md) {
 async function generateToc() {
     const toc = document.getElementById('toc');
     toc.innerHTML = '';
-    document.querySelectorAll('#content h1, #content h2').forEach((heading) => {
+
+    const selectors = [];
+    for (let i = 1; i <= config().tocDepth; i++) {
+        selectors.push(`#content h${i}`);
+    }
+    const query = selectors.join(', ');
+
+    document.querySelectorAll(query).forEach((heading) => {
+        if (heading.classList.contains("diskret")) {
+            return;
+        }
         const id = heading.textContent.trim().toLowerCase().replace(/[^\w]+/g, '-');
         heading.id = id;
+
         const li = document.createElement('li');
-        li.style.marginLeft = heading.tagName === 'H2' ? '10px' : heading.tagName === 'H3' ? '20px' : '0';
+        li.style.marginLeft =
+            heading.tagName === 'H2' ? '10px' :
+            heading.tagName === 'H3' ? '20px' :
+            heading.tagName === 'H4' ? '30px' : '0';
+
         const a = document.createElement('a');
         a.href = '#' + id;
         a.textContent = heading.textContent;
+
         li.appendChild(a);
         toc.appendChild(li);
-    });   
+    });
 }
 
 async function processPrintConfig() {
