@@ -22,5 +22,7 @@ services:
     build: ./puppeteer
     container_name: puppeteer
     restart: always
-    ports:
-      - "3000:3000"
+    volumes:
+      - ./puppeteer/render.js:/app/render.js:ro
+    expose:
+      - "3000"

@@ -83,11 +83,9 @@ img {
             font-size: 0.5rem;
         }
     }     
-    @page :first {
-        @bottom-center {
-            content: "";
-        }
-    } 
+    @page:first {
+          @bottom-center {  content: ""; } 
+    }
     body {
         display: block;
         margin: 0;
@@ -118,6 +116,17 @@ img {
     #cover-date {
         font-size: small;
     }    
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 10px;
+}
+@page:first {
+  .footer { display: none; } /* funktioniert im PDF-CSS */
 }
 
 @media (max-width: 1400px) {
