@@ -1,0 +1,22 @@
+{
+    "title":"empty",
+    "author": "Max Mustermann",
+    "version": "0.1.0",
+    "locale": "en-US",
+    "startDocument":"empty.md",
+    "autoGlossary": {
+        "active": true,
+        "strict": true,
+        "mixIn": false
+    },
+    "plantUML": {
+        "active": true,
+        "server":"/plantuml/svg"
+    },
+    "print": {
+        "coverPage": true,
+        "coverTitle": "Arc42 template with description",
+        "coverImage": "/assets/arc42-logo.png"
+    },
+    "tocDepth": 2
+}

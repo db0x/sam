@@ -4,6 +4,9 @@ import { loadFile } from './file.js';
 import { resolvePlantUML } from './plantuml.js';
 import { config, loadConfig } from './config.js';
 
+const params = new URLSearchParams(window.location.search);
+const content = params.get("content");
+
 async function resolveIncludes(outer) {
     
     const includeRegex = /!\[\]\(([^)]+\.md)\)/g;
@@ -107,7 +110,7 @@ async function processPrintConfig() {
     if ( !config().print.coverPage ) {
         document.getElementById("print-cover").style.display = "none";        
     } else {
-        document.getElementById("cover-image").src = " /content"+ config().print.coverImage;
+        document.getElementById("cover-image").src = " /content/"+content+'/'+ config().print.coverImage;
         document.getElementById("cover-title").innerText = config().print.coverTitle;
         document.getElementById("cover-author").innerText = config().author;        
         document.getElementById("cover-version").innerText = config().version;        
@@ -117,10 +120,16 @@ async function processPrintConfig() {
 }
 
 async function main() {
+    if (!content) {
+        document.getElementById('nav').style.display = 'none';
+        document.getElementById('content').innerHTML = '<p>⛔ Error: No content specified.</p>';
+        return res.status(400).send("miss content");
+    }
     try {
-        await loadConfig();
 
-        const md = await loadFile('content/'+ config().startDocument);
+        await loadConfig(content);
+
+        const md = await loadFile('content/'+content+'/'+ config().startDocument);
 
         await render(md);
         await generateToc();
