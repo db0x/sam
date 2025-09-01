@@ -43,7 +43,9 @@ async function createGlossary(full) {
     
     const regex = /`([^`]+)`\{([^}]+)\}/g;
     let match;
+    let terms = 0;    
     while ((match = regex.exec(full)) !== null) {
+        terms++;
         const term = match[1];        
         const definition = match[2];
         
@@ -56,8 +58,10 @@ async function createGlossary(full) {
             result = result.replaceAll("`"+term+"`{"+definition+"}", "[`"+term+"`](#"+anchor(term)+")");
         }
     }
-
-    return result + "\n" + lines.join("\n");
+    if (terms != 0) {
+        return result + "\n" + lines.join("\n");
+    } 
+    return result;
 }
 
 async function render(md) {
@@ -136,7 +140,8 @@ async function main() {
         await processPrintConfig();
 
     } catch (err) {
-        document.getElementById('content').innerHTML = '<p>Error loading Markdown file.</p>';
+        document.getElementById('nav').style.display = 'none';
+        document.getElementById('content').innerHTML = '<p>⛔ Error: Markdown-file not found or corrupt.</p>';
         console.error(err);
     }
 }

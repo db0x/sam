@@ -4,6 +4,7 @@ const puppeteer = require("puppeteer");
 const app = express();
 
 app.get("/render", async (req, res) => {
+  
   const content = req.query.content;
   const title = req.query.title;
   if (!content) return res.status(400).send("miss content");
@@ -17,7 +18,7 @@ app.get("/render", async (req, res) => {
   const page = await browser.newPage();
 
   try {
-    await page.goto( "http://"+content, { waitUntil: "networkidle0", timeout: 60000 });
+    await page.goto( "http://sam/?content="+content, { waitUntil: "networkidle0", timeout: 60000 });
 
     const pdf = await page.pdf({
       format: "A4",
