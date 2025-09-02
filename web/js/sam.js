@@ -132,6 +132,8 @@ async function main() {
     try {
 
         await loadConfig(content);
+        
+        document.title = config().title;
 
         const md = await loadFile('content/'+content+'/'+ config().startDocument);
 
