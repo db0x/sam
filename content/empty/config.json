@@ -15,8 +15,8 @@
     },
     "print": {
         "coverPage": true,
-        "coverTitle": "Arc42 template with description",
-        "coverImage": "/assets/arc42-logo.png"
+        "coverTitle": "Empty documentation",
+        "coverImage": "/assets/empty.svg"
     },
     "tocDepth": 2
 }

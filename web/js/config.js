@@ -11,8 +11,8 @@ async function loadConfig(content) {
         cfg.content = content;
         
     } catch (err) {
-        document.getElementById('content').innerHTML = '<p>Error loading config.json.</p>';
-        console.error(err);
+        document.getElementById('nav').style.display = 'none';
+        document.getElementById('content').innerHTML = '<p>⛔ Error: loading config.json.</p>';
     }
 }
 
