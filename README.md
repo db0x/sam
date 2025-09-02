@@ -15,7 +15,7 @@
 * `include` feature to get better structure of your documentation.
 * `include` automatic rendered plantUML diagrams into your document.
 * Improved printing to PDF and paper.
-* automatic handling of glossary
+* Automatic handling of glossary
 
 ## Get started
 
@@ -34,7 +34,12 @@ docker-compose up -d
 
 ### Open documentation in browser
 
-[documentation on localhost](http://localhost:8080)
+Two examples of documentation are enclosed.
+
+- [arc42-template on localhost](http://localhost:8080?content=arc42-template)
+- [empty documentation on localhost](http://localhost:8080?content=arc42-template)
+
+The associated .md files and configurations are located under `/content`.
 
 ## Features & configuration
 
@@ -90,7 +95,7 @@ what you can do with them.
 
 syntax:
 ```
-    `term`{description}
+`term`{description}
 ```
 
 The occurrence of the term is replaced in the text by a link to the term in the glossary, and the description in the glossary is taken over by curly brackets.
@@ -118,10 +123,11 @@ Its core function is to provide arc42 architecture documentation that can be eas
 ## Dependencies
 
 * docker / docker-compose
-* nginx (docker-container)
-* plantUML container ()
-* marked.js
-* puppeteer.js (headless print to pdf)
+* [nginx](https://nginx.org/)
+* [plantUML](https://plantuml.com/)
+* [puppeteer](https://pptr.dev/)
+* [marked.js](https://github.com/markedjs/marked)
+* [papirus icon theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
 
 ## Soon ....
 

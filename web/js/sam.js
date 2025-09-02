@@ -74,7 +74,7 @@ async function render(md) {
         full = await createGlossary(full);
     }
 
-    const html = marked.parse(full);
+    const html = marked.parse(full);    
     document.getElementById('content').innerHTML = html;    
 }
 
@@ -134,6 +134,7 @@ async function main() {
         await loadConfig(content);
         
         document.title = config().title;
+        document.getElementById('pdf-link').href = "/render/?content="+config().content+"&title="+config().title;
 
         const md = await loadFile('content/'+content+'/'+ config().startDocument);
 
