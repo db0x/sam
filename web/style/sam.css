@@ -97,15 +97,53 @@ img {
     flex-direction: column;
     align-items: center;
     font-size: 0.75rem;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
 }
 #toolbar a img {
     width: 3rem;
 }
-
 #statusbar {
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+.tooltip .tooltiptext {
+  visibility: hidden;
+  max-width: 480px;  
+  background-color: rgb(48, 46, 54);
+  color: #fff;
+  text-align: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  border-radius: 6px;
+
+  /* Position */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* oberhalb des Links */
+  left: 50%;
+  transform: translateX(-50%);
+
+  /* Animation */
+  opacity: 0;
+  transition: opacity 0.5s;
+  font-size: 0.9rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: .8;
 }
 @media print {
     .markdown-body {
