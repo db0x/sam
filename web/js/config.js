@@ -6,13 +6,28 @@ async function loadConfig(content) {
         if (!response.ok) {
             throw new Error("Error loading config.json: " + response.status);
         }
-
         cfg = await response.json();
         cfg.content = content;
         
     } catch (err) {
         document.getElementById('nav').style.display = 'none';
         document.getElementById('content').innerHTML = '<p>⛔ Error: loading config.json.</p>';
+    }
+    addPackage();
+}
+
+async function addPackage() {
+    try {
+        const response = await fetch("package.json"); 
+        if (!response.ok) {
+            throw new Error("Error loading package.json: " + response.status);
+        }
+        const pack = await response.json();
+        cfg.sam = pack;
+        document.getElementById('sam').innerHTML = document.getElementById('sam').innerHTML.replace('{$version}','<i>v.'+cfg.sam.version+'</i>');
+    } catch (err) {
+        document.getElementById('nav').style.display = 'none';
+        document.getElementById('content').innerHTML = '<p>⛔ Error: loading package.json.</p>';
     }
 }
 
