@@ -11,12 +11,13 @@
     },
     "plantUML": {
         "active": true,
-        "server":"/plantuml/svg"
+        "server":"/_plantuml/svg"
     },
     "print": {
         "coverPage": true,
         "coverTitle": "Arc42 template with description",
         "coverImage": "/assets/arc42-logo.png"
     },
+    "embedSVG":true,
     "tocDepth": 2
 }

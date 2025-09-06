@@ -71,11 +71,11 @@ example:
 ```json
     "plantUML": {
         "active": true,
-        "server":"/plantuml/svg"
+        "server":"/_plantuml/svg"
     }
 ```
 `plantUML.active` = true -> enables the feature\
-`plantUML.server` = "/plantuml/svg" -> endpoint to render plantUML to svg. default usage of a local docker-container. If you need an external server, this can be changed in this place. Our recommendation is to always use the local server, which is offered as the default, whenever possible to prevent data leakage.
+`plantUML.server` = "/_plantuml/svg" -> endpoint to render plantUML to svg. default usage of a local docker-container. If you need an external server, this can be changed in this place. Our recommendation is to always use the local server, which is offered as the default, whenever possible to prevent data leakage.
 
 ### Auto-glossary 
 
@@ -112,6 +112,19 @@ The occurrence of the term is replaced in the text by a link to the term in the 
 ```
 `autoGlossary.active` = true -> enables the feature\
 `autoGlossary.strict` = true -> replace **all** matches of term in the document with a link to the glossary
+
+### Embed SVGs 
+
+SVGs embedded directly in HTML have the advantage that you can search within the content of the graphics (including in PDFs). However, this requires the SVGs to be embedded directly. If this feature is enabled, all SVGs are searched for and embedded. The maximum width is also calculated for each graphic to ensure that it does not extend beyond the print area.
+
+#### Configuration 
+
+```json
+{
+    "embedSVG":true
+}
+```
+`embedSVG` = true -> enables the feature\
 
 ### Optimized to print from browser
 

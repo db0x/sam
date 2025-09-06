@@ -3,7 +3,7 @@ const puppeteer = require("puppeteer");
 
 const app = express();
 
-app.get("/render", async (req, res) => {
+app.get("/pdf", async (req, res) => {
   
   const content = req.query.content;
   const title = req.query.title;

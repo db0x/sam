@@ -10,7 +10,7 @@ function anchor(term) {
     .replace(/^-+|-+$/g, ""); 
 }
 
-async function createGlossary(full) {
+async function generateGlossary(full) {
     var result = full;  
     var lines = ["| Term        | Definition |",
                  "|-------------|------------|"];
@@ -38,4 +38,4 @@ async function createGlossary(full) {
     return result;
 }
 
-export { createGlossary }
+export { generateGlossary }

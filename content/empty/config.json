@@ -11,12 +11,13 @@
     },
     "plantUML": {
         "active": true,
-        "server":"/plantuml/svg"
+        "server":"/_plantuml/svg"
     },
     "print": {
         "coverPage": true,
         "coverTitle": "Empty documentation",
         "coverImage": "/assets/empty.svg"
     },
+    "embedSVG":true,
     "tocDepth": 2
 }

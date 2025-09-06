@@ -17,8 +17,6 @@ async function renderPlantUML(umlText, server = config.plantUML.server) {
 }
 
 async function resolvePlantUML(outer) {
-    
-    console.log(config);
 
     const includeRegex = /!\[\]\(([^)]+\.wsd)\)/g;
 

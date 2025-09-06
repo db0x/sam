@@ -3,7 +3,8 @@ let startDocument = "";
 import { loadFile } from './file.js';
 import { config, loadConfig } from './config.js';
 import { resolvePlantUML } from './plantuml.js';
-import { createGlossary } from './glossary.js';
+import { resolveSVG, makeSVGResponsive } from './svg.js';
+import { generateGlossary } from './glossary.js';
 
 const params = new URLSearchParams(window.location.search);
 const content = params.get("content");
@@ -34,8 +35,11 @@ async function render(md) {
     if (config().plantUML.active) {
         full = await resolvePlantUML(full);
     }
+    if (config().embedSVG) {
+        full = await resolveSVG(full);
+    }
     if (config().autoGlossary.active) {
-        full = await createGlossary(full);
+        full = await generateGlossary(full);
     }
 
     const html = marked.parse(full);    
@@ -74,7 +78,7 @@ async function generateToc() {
     });
 }
 
-async function processPrintConfig() {
+async function generateCover() {
     if ( !config().print.coverPage ) {
         document.getElementById("print-cover").style.display = "none";        
     } else {
@@ -98,13 +102,16 @@ async function main() {
         await loadConfig(content);
         
         document.title = config().title;
-        document.getElementById('pdf-link').href = "/render/?content="+config().content+"&title="+config().title;
+        document.getElementById('pdf-link').href = "/_pdf/?content="+config().content+"&title="+config().title;
 
         const md = await loadFile('content/'+content+'/'+ config().startDocument);
 
         await render(md);
+        
+        makeSVGResponsive(1200);
+        
         await generateToc();
-        await processPrintConfig();
+        await generateCover();
 
     } catch (err) {
         document.getElementById('nav').style.display = 'none';
