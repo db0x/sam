@@ -10,4 +10,4 @@
 > Remark: The main criterion for the choice of possible scenarios (sequences, workflows) is their architectural relevancy. It is not important to describe a large number of scenarios. You should rather document a representative selection.
 
 <!-- include a example plantUML to this place -->
-![](/content/arc42-template/assets/plantUML/06-example.wsd)
+![](assets/plantUML/06-example.wsd)

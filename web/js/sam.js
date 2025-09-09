@@ -18,7 +18,8 @@ async function resolveIncludes(outer) {
     const replacements = [];
     while ((match = includeRegex.exec(outer)) !== null) {
         let importPath = match[1];
-        const importedText = await loadFile(importPath);
+        var importedText = await loadFile(importPath);
+        importedText = await fixPaths(importedText);
         replacements.push({ match: match[0], text: importedText });
     }
 
@@ -29,9 +30,21 @@ async function resolveIncludes(outer) {
     return result;
 }
 
+async function fixPaths(md) {
+  const prefix = '/content/'+ config().content + '/';
+  const regex = /!\[[^\]]*]\((?!\.?\/)([^)]+\.[a-zA-Z0-9]+)\)/g;
+
+  return md.replace(regex, (match, path) => {
+    return match.replace(path, prefix + path);
+  });
+}
+
 async function render(md) {
     var full;
-    full = await resolveIncludes(md);   
+
+    full = await fixPaths(md)
+    full = await resolveIncludes(full);   
+    
     if (config().plantUML.active) {
         full = await resolvePlantUML(full);
     }

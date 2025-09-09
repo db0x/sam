@@ -10,48 +10,48 @@ Good luck with creating your architectural documentation as it should be!
 
 <div class="page-break"></div>
 
-![](/content/arc42-template/01-Introduction_and_Goals.md)
+![](01-Introduction_and_Goals.md)
 
 <div class="page-break"></div>
 
-![](/content/arc42-template/02-Architecture_Constraints.md)
+![](02-Architecture_Constraints.md)
 
 <div class="page-break"></div>
 
-![](/content/arc42-template/03-Context_and_Scope.md)
+![](03-Context_and_Scope.md)
 
 <div class="page-break"></div>
 
-![](/content/arc42-template/04-Solution_Strategy.md)
+![](04-Solution_Strategy.md)
 
 <div class="page-break"></div>
 
-![](/content/arc42-template/05-Building_Block_View.md)
+![](05-Building_Block_View.md)
 
 <div class="page-break"></div>
 
-![](/content/arc42-template/06-Runtime_View.md)
+![](06-Runtime_View.md)
 
 <div class="page-break"></div>
 
-![](/content/arc42-template/07-Deployment_View.md)
+![](07-Deployment_View.md)
 
 <div class="page-break"></div>
 
-![](/content/arc42-template/08-Cross-cutting_Concepts.md)
+![](08-Cross-cutting_Concepts.md)
 
 <div class="page-break"></div>
 
-![](/content/arc42-template/09-Architecture_Decisions.md)
+![](09-Architecture_Decisions.md)
 
 <div class="page-break"></div>
 
-![](/content/arc42-template/10-Quality_Requirements.md)
+![](10-Quality_Requirements.md)
 
 <div class="page-break"></div>
 
-![](/content/arc42-template/11-Risks_and_Technical_Debts.md)
+![](11-Risks_and_Technical_Debts.md)
 
 <div class="page-break"></div>
 
-![](/content/arc42-template/12-Glossary.md)
+![](12-Glossary.md)

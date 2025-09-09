@@ -4,7 +4,7 @@
 >
 > This view is mandatory for every architecture documentation. In analogy to a house this is the floor plan.
 
-![building block hierarchy](/content/arc42-template/assets/05-building-block-hierarchy.png)
+![building block hierarchy](assets/05-building-block-hierarchy.png)
 
 [source arc42.org](https://docs.arc42.org/section-5/)
 
