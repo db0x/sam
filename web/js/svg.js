@@ -64,6 +64,7 @@ function makeSVGResponsive(maxWidthPx = 1000, { forcePreserveAspect = false, obs
   function process(svg) {
     if (!(svg instanceof SVGElement)) return;
     const intrinsic = getIntrinsicWidth(svg);
+    svg.style.removeProperty('color-scheme');
     if (intrinsic == null) return;         
     if (intrinsic <= maxWidthPx) return;   
 

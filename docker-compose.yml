@@ -15,14 +15,10 @@ services:
   plantuml:
     image: plantuml/plantuml-server:jetty
     container_name: plantuml
-    expose:
-      - "8080"
     restart: unless-stopped
   puppeteer:
     build: ./puppeteer
     container_name: puppeteer
-    restart: always
+    restart: unless-stopped
     volumes:
       - ./puppeteer/render.js:/app/render.js:ro
-    expose:
-      - "3000"

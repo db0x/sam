@@ -96,10 +96,10 @@ async function generateCover() {
         document.getElementById("print-cover").style.display = "none";        
     } else {
         document.getElementById("cover-image").src = " /content/"+content+'/'+ config().print.coverImage;
-        document.getElementById("cover-title").innerText = config().print.coverTitle;
-        document.getElementById("cover-author").innerText = config().author;        
-        document.getElementById("cover-version").innerText = config().version;        
-        document.getElementById("cover-date").innerText =  new Intl.DateTimeFormat(config().locale, {day: '2-digit', month: 'long', year: 'numeric'})
+        document.getElementById("cover-title").innerHTML = config().print.coverTitle;
+        document.getElementById("cover-author").innerHTML = config().author;        
+        document.getElementById("cover-version").innerHTML = config().version;        
+        document.getElementById("cover-date").innerHTML =  new Intl.DateTimeFormat(config().locale, {day: '2-digit', month: 'long', year: 'numeric'})
             .format(new Date());
     }
 }
