@@ -51,7 +51,7 @@ example:
 * include of all content from `/content/01-Introduction_and_Goals.md` to this place.
 
 ```md
-![](/content/01-Introduction_and_Goals.md) 
+![](01-Introduction_and_Goals.md) 
 ```
 This feature is always active and does not need to be configured.
 
@@ -64,7 +64,7 @@ example:
 * include rendered svg of `/content/assets/plantUML/06-example.wsd` to this place.
 
 ```md
-![](/content/assets/plantUML/06-example.wsd)
+![](assets/plantUML/06-example.wsd)
 ```
 #### Configuration 
 

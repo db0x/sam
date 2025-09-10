@@ -116,6 +116,7 @@ async function main() {
         
         document.title = config().title;
         document.getElementById('pdf-link').href = "/_pdf/?content="+config().content+"&title="+config().title;
+        document.getElementById('zip-link').href = "/_zip/?content="+config().content+"&title="+config().title;
 
         const md = await loadFile('content/'+content+'/'+ config().startDocument);
 

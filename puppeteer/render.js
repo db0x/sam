@@ -3,7 +3,6 @@ import puppeteer from "puppeteer";
 import axios from "axios";
 import archiver from "archiver";
 import path from "path";
-import { Readable } from "stream";
 
 const app = express();
 
@@ -61,10 +60,9 @@ app.get("/zip", async (req, res) => {
 
   const html = await page.content();
 
-  // Alle Ressourcen sammeln (img, link, script, ...)
   const resources = await page.evaluate(() => {
     const urls = [];
-    document.querySelectorAll("img, link[rel=stylesheet], script[src]").forEach(el => {
+    document.querySelectorAll("img, link[rel=stylesheet]").forEach(el => {
       const src = el.src || el.href;
       if (src) urls.push(src);
     });
@@ -73,7 +71,7 @@ app.get("/zip", async (req, res) => {
 
   await browser.close();
 
-  res.attachment("page.zip");
+  res.attachment(title + ".zip");
   const archive = archiver("zip", { zlib: { level: 9 } });
   archive.pipe(res);
 
