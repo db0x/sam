@@ -8,50 +8,50 @@ The 12 chapters of the template with introductory descriptions are created as `i
 
 Good luck with creating your architectural documentation as it should be!
 
-<div class="page-break"></div>
+{page-break}
 
 ![](01-Introduction_and_Goals.md)
 
-<div class="page-break"></div>
+{page-break}
 
 ![](02-Architecture_Constraints.md)
 
-<div class="page-break"></div>
+{page-break}
 
 ![](03-Context_and_Scope.md)
 
-<div class="page-break"></div>
+{page-break}
 
 ![](04-Solution_Strategy.md)
 
-<div class="page-break"></div>
+{page-break}
 
 ![](05-Building_Block_View.md)
 
-<div class="page-break"></div>
+{page-break}
 
 ![](06-Runtime_View.md)
 
-<div class="page-break"></div>
+{page-break}
 
 ![](07-Deployment_View.md)
 
-<div class="page-break"></div>
+{page-break}
 
 ![](08-Cross-cutting_Concepts.md)
 
-<div class="page-break"></div>
+{page-break}
 
 ![](09-Architecture_Decisions.md)
 
-<div class="page-break"></div>
+{page-break}
 
 ![](10-Quality_Requirements.md)
 
-<div class="page-break"></div>
+{page-break}
 
 ![](11-Risks_and_Technical_Debts.md)
 
-<div class="page-break"></div>
+{page-break}
 
 ![](12-Glossary.md)

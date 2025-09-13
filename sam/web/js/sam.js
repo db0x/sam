@@ -1,5 +1,3 @@
-let startDocument = "";
-
 import { loadFile } from './file.js';
 import { config, loadConfig } from './config.js';
 import { resolvePlantUML } from './plantuml.js';
@@ -39,6 +37,14 @@ async function fixPaths(md) {
   });
 }
 
+async function simpleReplace(md) {
+    var content = md;
+    content = content.replaceAll('{page-break}','<div class="page-break"></div>');
+    content = content.replaceAll('{ok}','<img class=\'inline-icon\' src=\'assets/ok.svg\'>');
+    content = content.replaceAll('{nok}','<img class=\'inline-icon\' src=\'assets/nok.svg\'>');
+    return content;
+}
+
 async function render(md) {
     var full;
 
@@ -54,6 +60,8 @@ async function render(md) {
     if (config().autoGlossary.active) {
         full = await generateGlossary(full);
     }
+
+    full = await simpleReplace(full);
 
     const html = marked.parse(full);    
     document.getElementById('content').innerHTML = html;    
