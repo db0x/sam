@@ -15,7 +15,8 @@
 * `include` feature to get better structure of your documentation.
 * `include` automatic rendered plantUML diagrams into your document.
 * Improved printing to PDF and paper.
-* Automatic handling of glossary
+* Download ziped static documentation.
+* Automatic handling of glossary.
 
 ## Get started
 
@@ -141,9 +142,4 @@ Its core function is to provide arc42 architecture documentation that can be eas
 * [puppeteer](https://pptr.dev/)
 * [marked.js](https://github.com/markedjs/marked)
 * [papirus icon theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
-
-## Soon ....
-
-* includes with more layers 
-* print-support with settings
 

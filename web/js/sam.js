@@ -31,7 +31,7 @@ async function resolveIncludes(outer) {
 }
 
 async function fixPaths(md) {
-  const prefix = '/content/'+ config().content + '/';
+  const prefix = 'content/'+ config().content + '/';
   const regex = /!\[[^\]]*]\((?!\.?\/)([^)]+\.[a-zA-Z0-9]+)\)/g;
 
   return md.replace(regex, (match, path) => {
