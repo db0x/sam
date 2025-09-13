@@ -6,20 +6,23 @@ services:
       - "8080:80"
     volumes:
       - ./content:/content:ro      
-      - ./web:/usr/share/nginx/html:rw
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./sam/web:/usr/share/nginx/html:rw
+      - ./sam/package.json:/usr/share/nginx/html/package.json:ro
+      - ./sam/nginx.conf:/etc/nginx/conf.d/default.conf:ro
     command: /bin/sh -c "ln -sfn /content /usr/share/nginx/html/content && nginx -g 'daemon off;'"
     restart: unless-stopped
     depends_on:
       - puppeteer    
+  
   plantuml:
     image: plantuml/plantuml-server:jetty
     container_name: plantuml
     restart: unless-stopped
+  
   puppeteer:
-    build: ./puppeteer
+    build: ./sam/puppeteer
     container_name: puppeteer
     restart: unless-stopped
     volumes:
-      - ./puppeteer/main.js:/app/main.js:ro
-      - ./puppeteer/export:/app/export:ro
+      - ./sam/puppeteer/main.js:/app/main.js:ro
+      - ./sam/puppeteer/export:/app/export:ro
