@@ -8,12 +8,13 @@ async function loadConfig(content) {
         }
         cfg = await response.json();
         cfg.content = content;
+    
+        addPackage();
         
     } catch (err) {
         document.getElementById('nav').style.display = 'none';
         document.getElementById('content').innerHTML = '<p>⛔ Error: loading config.json.</p>';
     }
-    addPackage();
 }
 
 async function addPackage() {

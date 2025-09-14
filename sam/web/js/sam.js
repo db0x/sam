@@ -137,8 +137,8 @@ async function main() {
 
     } catch (err) {
         document.getElementById('nav').style.display = 'none';
-        document.getElementById('content').innerHTML = '<p>⛔ Error: Markdown-file not found or corrupt.</p>';
-        console.error(err);
+        document.getElementById('content').innerHTML = `<p>⛔ Error: The content <code>${content}</code> misses configuration or is unknown.</p>`;
+        return res.status(400).send("miss content");
     }
 }
 
