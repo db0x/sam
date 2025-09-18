@@ -15,7 +15,7 @@ async function pdf(req, res) {
   const page = await browser.newPage();
 
   try {
-    await page.goto( "http://sam/?content="+content, { waitUntil: "networkidle0", timeout: 60000 });
+    await page.goto( "http://sam/?content="+content+"&format=pdf", { waitUntil: "networkidle0", timeout: 60000 });
 
     const pdf = await page.pdf({
       format: "A4",

@@ -6,6 +6,7 @@ import { generateGlossary } from './glossary.js';
 
 const params = new URLSearchParams(window.location.search);
 const content = params.get("content");
+const format = params.get("format");
 
 async function resolveIncludes(outer) {
     
@@ -130,7 +131,11 @@ async function main() {
 
         await render(md);
         
-        makeSVGResponsive(1200);
+        if ( format == 'pdf') {
+            makeSVGResponsive(900);
+        } else {
+            makeSVGResponsive(1200);
+        }
         
         await generateToc();
         await generateCover();
