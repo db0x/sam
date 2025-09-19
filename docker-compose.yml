@@ -5,7 +5,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./content:/content:ro      
+      - ./content/examples:/content/examples:ro      
       - ./sam/web:/usr/share/nginx/html:rw
       - ./sam/package.json:/usr/share/nginx/html/package.json:ro
       - ./sam/nginx.conf:/etc/nginx/conf.d/default.conf:ro
