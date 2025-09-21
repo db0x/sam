@@ -4,6 +4,9 @@ import { resolvePlantUML } from './plantuml.js';
 import { resolveSVG, makeSVGResponsive } from './svg.js';
 import { generateGlossary } from './glossary.js';
 
+import { exec } from './plugins/java.js';
+
+
 const params = new URLSearchParams(window.location.search);
 const content = params.get("content");
 const format = params.get("format");
@@ -64,8 +67,16 @@ async function render(md) {
 
     full = await simpleReplace(full);
 
+    full = await exec(full);
+    
     const html = marked.parse(full);    
     document.getElementById('content').innerHTML = html;    
+
+    if (config().highlightJs == undefined || config().highlightJs == true) {
+        document.querySelectorAll('pre code').forEach((el) => {
+            hljs.highlightElement(el);
+        });
+    }
 }
 
 async function generateToc() {
@@ -113,6 +124,16 @@ async function generateCover() {
     }
 }
 
+function setFavicon(url) {
+    let link = document.querySelector("link[rel~='icon']");
+    if (!link) {
+    link = document.createElement("link");
+    link.rel = "icon";
+    document.head.appendChild(link);
+    }
+    link.href = url;
+}
+
 async function main() {
     if (!content) {
         document.getElementById('nav').style.display = 'none';
@@ -127,6 +148,15 @@ async function main() {
         document.getElementById('pdf-link').href = "/_pdf/?content="+config().content+"&title="+config().title;
         document.getElementById('zip-link').href = "/_zip/?content="+config().content+"&title="+config().title;
 
+        if (config().navImage) {
+            document.getElementById('nav-img').src = 'content/'+content+'/'+ config().navImage;
+        }
+        if (config().navLink) {
+            document.getElementById('nav-link').href = config().navLink;
+        }
+        if (config().favicon) {
+            setFavicon('content/'+content+'/'+ config().favicon);
+        }
         const md = await loadFile('content/'+content+'/'+ config().startDocument);
 
         await render(md);

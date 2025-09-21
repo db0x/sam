@@ -75,12 +75,12 @@ img {
     border-radius: 6px;
     box-shadow: 0 0 8px rgba(0,0,0,0.1);
 }
-.arc42-logo-div {
+.nav-logo-div {
     width: 100%;
     text-align: center;
     padding-top: 1rem;
 }
-.arc42-logo {
+.nav-logo {
     width: 10rem;
 }
 #print-cover {
@@ -185,15 +185,23 @@ visibility: hidden;
         }
     }     
     @page:first {
-          @bottom-center {  content: ""; } 
+        margin: 0; 
+        @bottom-center {  content: ""; } 
     }
     body {
         background: white;
         display: block;
         margin: 0;
     }
+    code {
+        white-space: pre-wrap !important;   
+        word-wrap: break-word !important;   
+        overflow-wrap: break-word !important; 
+        font-size: x-small !important;
+    }
     #print-cover {
         margin: 0;
+        max-height: 297mm;
         height: 297mm;
         page-break-after: always;
         display: flex;

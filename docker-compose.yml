@@ -9,7 +9,7 @@ services:
       - ./sam/web:/usr/share/nginx/html:rw
       - ./sam/package.json:/usr/share/nginx/html/package.json:ro
       - ./sam/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-    command: /bin/sh -c "ln -sfn /content /usr/share/nginx/html/content && nginx -g 'daemon off;'"
+    command: /bin/sh -c "ln -sfn /content /usr/share/nginx/html/content && ln -sfn /add /usr/share/nginx/html/add && nginx -g 'daemon off;'"
     restart: unless-stopped
     depends_on:
       - puppeteer    

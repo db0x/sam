@@ -1,2 +1,4 @@
 .vscode/*
 sam/web/content
+sam/web/add
+docker-compose.*.yml

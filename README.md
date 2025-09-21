@@ -130,6 +130,7 @@ SVGs embedded directly in HTML have the advantage that you can search within the
 ### Optimized to print from browser
 
 Its core function is to provide arc42 architecture documentation that can be easily printed in PDF or on paper.
+
 * automatic printing of page numbers
 * handling of toc
 * adjustable page breaks
@@ -141,5 +142,6 @@ Its core function is to provide arc42 architecture documentation that can be eas
 * [plantUML](https://plantuml.com/)
 * [puppeteer](https://pptr.dev/)
 * [marked.js](https://github.com/markedjs/marked)
+* [highlightjs](https://highlightjs.org/)
 * [papirus icon theme](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
 
