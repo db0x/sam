@@ -7,10 +7,36 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown-light.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/intellij-light.min.css">
   <link rel="stylesheet" href="style/sam.css">
+  <link rel="stylesheet" href="style/print.css">
+  <link rel="stylesheet" href="style/tooltip.css">
 </head>
 
 <body>
   <nav class="no-print" id="nav">
+    
+    <button id="menuBtn" class="menu-btn"> ⋮ </button>
+
+    <div class="menu" id="menu">
+      <ul>
+        <li>
+          <a id="pdf-link" class="tooltip" href="/render">
+           <span class="menu-item">
+            <img src="assets/application-pdf.svg">
+            <span>Documentation as PDF file.</span>
+          </span>
+          </a>
+        </li>
+        <li>
+          <a id="zip-link" class="tooltip" href="/render">
+          <span class="menu-item">
+            <img src="assets/application-zip.svg">
+            <span>Static HTML in ZIP file.</span>
+          </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
     <div class="nav-logo-div top">
       <a id="nav-link" href="https://arc42.de/" target="_blank">
         <img id="nav-img" src="assets/arc42-logo.png" class="nav-logo"/>
@@ -19,29 +45,8 @@
     <div class= "middle">
       <ul id="toc"></ul>
     </div>
-      
+
     <div class="bottom">
-      <div id="toolbar">
-        <a id="pdf-link" class="tooltip" href="/render">
-          <img src="assets/application-pdf.svg">
-          pdf
-          <span class="tooltiptext">
-            <img src="assets/application-pdf.svg">
-            <span>Download or print<br>this documentation as a<br>PDF file.</span>
-          </span>
-        </a>
-        <a id="zip-link" class="tooltip" href="/render">
-          <img src="assets/application-zip.svg">
-          zip
-          <span class="tooltiptext">
-            <img src="assets/application-zip.svg">
-            <span>Download static HTML<br>compressed as<br>ZIP file.</span>
-          </span>
-        </a>
-        <!--        
-        <a id="html-md" href="/render"><img src="assets/application-markdown.svg">md</a>
-        -->
-      </div>
       <div id="statusbar">
         <a href="https://github.com/db0x/sam" target="_blank">
 <pre class="ascii" id="sam">

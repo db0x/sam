@@ -4,7 +4,7 @@ import { resolvePlantUML } from './plantuml.js';
 import { resolveSVG, makeSVGResponsive } from './svg.js';
 import { generateGlossary } from './glossary.js';
 
-import { exec } from './plugins/java.js';
+import { includeCode } from './codeInclude.js';
 
 
 const params = new URLSearchParams(window.location.search);
@@ -33,12 +33,12 @@ async function resolveIncludes(outer) {
 }
 
 async function fixPaths(md) {
-  const prefix = 'content/'+ config().content + '/';
-  const regex = /!\[[^\]]*]\((?!\.?\/)([^)]+\.[a-zA-Z0-9]+)\)/g;
+    const prefix = 'content/'+ config().content + '/';
+    const regex = /!\[[^\]]*]\((?!\.?\/)([^)]+\.[a-zA-Z0-9]+)\)/g;
 
-  return md.replace(regex, (match, path) => {
-    return match.replace(path, prefix + path);
-  });
+    return md.replace(regex, (match, path) => {
+        return match.replace(path, prefix + path);
+    });
 }
 
 async function simpleReplace(md) {
@@ -67,7 +67,7 @@ async function render(md) {
 
     full = await simpleReplace(full);
 
-    full = await exec(full);
+    full = await includeCode(full, 'csharp');
     
     const html = marked.parse(full);    
     document.getElementById('content').innerHTML = html;    
@@ -124,6 +124,22 @@ async function generateCover() {
     }
 }
 
+async function menu() {
+    const menuBtn = document.getElementById("menuBtn");
+    const menu = document.getElementById("menu");
+
+    menuBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        menu.classList.toggle("show");
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
+            menu.classList.remove("show");
+        }
+    });
+}
+
 function setFavicon(url) {
     let link = document.querySelector("link[rel~='icon']");
     if (!link) {
@@ -145,8 +161,11 @@ async function main() {
         await loadConfig(content);
         
         document.title = config().title;
+
         document.getElementById('pdf-link').href = "/_pdf/?content="+config().content+"&title="+config().title;
         document.getElementById('zip-link').href = "/_zip/?content="+config().content+"&title="+config().title;
+
+        await menu();
 
         if (config().navImage) {
             document.getElementById('nav-img').src = 'content/'+content+'/'+ config().navImage;
@@ -169,11 +188,11 @@ async function main() {
         
         await generateToc();
         await generateCover();
-
     } catch (err) {
         document.getElementById('nav').style.display = 'none';
         document.getElementById('content').innerHTML = `<p>⛔ Error: The content <code>${content}</code> misses configuration or is unknown.</p>`;
-        return res.status(400).send("miss content");
+        console.log(err);
+        //return res.status(400).send("miss content");
     }
 }
 
