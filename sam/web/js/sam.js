@@ -41,13 +41,23 @@ async function fixPaths(md) {
     });
 }
 
-async function simpleReplace(md) {
+async function markdownReplace(md) {
     var content = md;
     content = content.replaceAll('{page-break}','<div class="page-break"></div>');
     content = content.replaceAll('{ok}','<img class=\'inline-icon\' src=\'assets/ok.svg\'>');
     content = content.replaceAll('{nok}','<img class=\'inline-icon\' src=\'assets/nok.svg\'>');
     return content;
 }
+
+async function htmlReplace() {
+    document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((el) => {
+        if ( el.innerHTML.includes('{discreet}')) {
+            el.innerHTML = el.innerHTML.replace('{discreet}','');
+            el.classList.add('discreet')
+        }
+    });
+}
+
 
 async function render(md) {
     var full;
@@ -65,12 +75,14 @@ async function render(md) {
         full = await generateGlossary(full);
     }
 
-    full = await simpleReplace(full);
+    full = await markdownReplace(full);
 
     full = await includeCode(full, 'csharp');
     
     const html = marked.parse(full);    
+
     document.getElementById('content').innerHTML = html;    
+    await htmlReplace();
 
     if (config().highlightJs == undefined || config().highlightJs == true) {
         document.querySelectorAll('pre code').forEach((el) => {
@@ -90,7 +102,7 @@ async function generateToc() {
     const query = selectors.join(', ');
 
     document.querySelectorAll(query).forEach((heading) => {
-        if (heading.classList.contains("diskret")) {
+        if (heading.classList.contains("discreet")) {
             return;
         }
         const id = heading.textContent.trim().toLowerCase().replace(/[^\w]+/g, '-');
