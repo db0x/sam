@@ -21,12 +21,16 @@ async function zip(req, res) {
   const plain = await page.content();
   const $ = cheerio.load(plain);
   $('#statusbar').remove();
-  $('#toolbar').remove();
+  $('#menuBtn').remove();
+  $('#jssam').remove();
+  $('#jsmarked').remove();
+  $('#jshighlightjs').remove();
+
   const html = $.html();
 
   const resources = await page.evaluate(() => {
     const urls = [];
-    document.querySelectorAll("img, link[rel=stylesheet]").forEach(el => {
+    document.querySelectorAll("img, link[rel=stylesheet], link[rel=icon]").forEach(el => {
       const src = el.src || el.href;
       
       if (src && src.startsWith('http://sam/')) urls.push(src);

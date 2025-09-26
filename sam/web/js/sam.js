@@ -127,7 +127,7 @@ async function generateCover() {
     if ( !config().print.coverPage ) {
         document.getElementById("print-cover").style.display = "none";        
     } else {
-        document.getElementById("cover-image").src = " /content/"+content+'/'+ config().print.coverImage;
+        document.getElementById("cover-image").src = "content/"+content+'/'+ config().print.coverImage;
         document.getElementById("cover-title").innerHTML = config().print.coverTitle;
         document.getElementById("cover-author").innerHTML = config().author;        
         document.getElementById("cover-version").innerHTML = config().version;        
