@@ -4,7 +4,7 @@ import { resolvePlantUML } from './plantuml.js';
 import { resolveSVG, makeSVGResponsive } from './svg.js';
 import { generateGlossary } from './glossary.js';
 
-import { includeCode } from './codeInclude.js';
+import { inspect } from './insepect.js';
 
 
 const params = new URLSearchParams(window.location.search);
@@ -77,7 +77,7 @@ async function render(md) {
 
     full = await markdownReplace(full);
 
-    full = await includeCode(full, 'csharp');
+    full = await inspect(full);
     
     const html = marked.parse(full);    
 
@@ -155,9 +155,9 @@ async function menu() {
 function setFavicon(url) {
     let link = document.querySelector("link[rel~='icon']");
     if (!link) {
-    link = document.createElement("link");
-    link.rel = "icon";
-    document.head.appendChild(link);
+        link = document.createElement("link");
+        link.rel = "icon";
+        document.head.appendChild(link);
     }
     link.href = url;
 }
