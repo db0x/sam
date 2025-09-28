@@ -20,6 +20,8 @@ async function inspect(md) {
                     let replacement = '';
                     if ( json.language == 'markdown') { 
                         replacement = await processMarkdown(json);
+                    } else if ( json.language == 'java') { 
+                        replacement = await processJava(json);
                     } else {
                         replacement = await fallback(json);
                     }
@@ -47,9 +49,28 @@ async function processMarkdown(inspect) {
     return '```'+inspect.language+'\n'+code+'\n```';
 }
 
+async function processJava(inspect) {
+    let code = await loadFile('/add/'+config().content+'/'+inspect.inspect);
+    if ( inspect.mode && inspect.mode == 'lines') {
+        return '```'+inspect.language+'\n'+extractLines(code, inspect.parameter)+'\n```';    
+    }
+    return '```'+inspect.language+'\n'+code+'\n```';
+}
+
 async function fallback(inspect) {
     let code = await loadFile('/add/'+config().content+'/'+inspect.inspect);
     return '```'+inspect.language+'\n'+code+'\n```';
+}
+
+function extractLines(codeString, ranges) {
+  const lines = codeString.split("\n");
+
+  const blocks = ranges.map(range => {
+    const [start, end] = range.split("..").map(Number);
+    return lines.slice(start, end + 1);
+  });
+
+  return blocks.map(block => block.join("\n")).join("\n  .. \n");
 }
 
 export { inspect }
