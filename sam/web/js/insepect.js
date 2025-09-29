@@ -41,9 +41,19 @@ async function inspect(md) {
     return md;
 }
 
+function shiftMarkdownHeadings(markdown, offset) {
+  return markdown.replace(/^(#{1,6})\s+(.*)$/gm, (match, hashes, title) => {
+    let newLevel = Math.max(1, Math.min(6, hashes.length + offset));
+    return '#'.repeat(newLevel) + ' ' + title;
+  });
+}
+
 async function processMarkdown(inspect) {
     let code = await loadFile('/add/'+config().content+'/'+inspect.inspect);
     if ( inspect.mode && inspect.mode == 'render') {
+        if ( inspect.offset ) {
+            return shiftMarkdownHeadings(code, inspect.offset);
+        }
         return code;    
     }
     return '```'+inspect.language+'\n'+code+'\n```';
