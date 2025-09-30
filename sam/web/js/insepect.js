@@ -22,6 +22,8 @@ async function inspect(md) {
                         replacement = await processMarkdown(json);
                     } else if ( json.language == 'java') { 
                         replacement = await processJava(json);
+                    } else if ( json.language == 'yml') { 
+                        replacement = await processYml(json);
                     } else {
                         replacement = await fallback(json);
                     }
@@ -39,13 +41,6 @@ async function inspect(md) {
         }
     }
     return md;
-}
-
-function shiftMarkdownHeadings(markdown, offset) {
-  return markdown.replace(/^(#{1,6})\s+(.*)$/gm, (match, hashes, title) => {
-    let newLevel = Math.max(1, Math.min(6, hashes.length + offset));
-    return '#'.repeat(newLevel) + ' ' + title;
-  });
 }
 
 async function processMarkdown(inspect) {
@@ -67,6 +62,11 @@ async function processJava(inspect) {
     return '```'+inspect.language+'\n'+code+'\n```';
 }
 
+async function processYml(inspect) {
+    let code = await loadFile('/add/'+config().content+'/'+inspect.inspect);
+    return '```'+inspect.language+'\n'+code+'\n```';
+}
+
 async function fallback(inspect) {
     let code = await loadFile('/add/'+config().content+'/'+inspect.inspect);
     return '```'+inspect.language+'\n'+code+'\n```';
@@ -81,6 +81,13 @@ function extractLines(codeString, ranges) {
   });
 
   return blocks.map(block => block.join("\n")).join("\n  .. \n");
+}
+
+function shiftMarkdownHeadings(markdown, offset) {
+  return markdown.replace(/^(#{1,6})\s+(.*)$/gm, (match, hashes, title) => {
+    let newLevel = Math.max(1, Math.min(6, hashes.length + offset));
+    return '#'.repeat(newLevel) + ' ' + title;
+  });
 }
 
 export { inspect }
