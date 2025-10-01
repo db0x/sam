@@ -4,7 +4,7 @@ import { resolvePlantUML } from './plantuml.js';
 import { resolveSVG, makeSVGResponsive } from './svg.js';
 import { generateGlossary } from './glossary.js';
 
-import { inspect } from './insepect.js';
+import { inspect, inspectValue} from './insepect.js';
 
 
 const params = new URLSearchParams(window.location.search);
@@ -130,7 +130,17 @@ async function generateCover() {
         document.getElementById("cover-image").src = "content/"+content+'/'+ config().print.coverImage;
         document.getElementById("cover-title").innerHTML = config().print.coverTitle;
         document.getElementById("cover-author").innerHTML = config().author;        
-        document.getElementById("cover-version").innerHTML = config().version;        
+
+        if ( config().version ) {
+            if ( typeof config().version == "object" ) {
+                 document.getElementById("cover-version").innerHTML = await inspectValue(config().version);
+            } else {
+                document.getElementById("cover-version").innerHTML = config().version;        
+            }
+        } else {
+            document.getElementById("cover-version").innerHTML = "";
+        }
+
         document.getElementById("cover-date").innerHTML =  new Intl.DateTimeFormat(config().locale, {day: '2-digit', month: 'long', year: 'numeric'})
             .format(new Date());
     }

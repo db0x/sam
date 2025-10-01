@@ -17,19 +17,8 @@ async function inspect(md) {
                 const json = JSON.parse(match[0]);
                 
                 try {
-                    let replacement = '';
-                    if ( json.language == 'markdown') { 
-                        replacement = await processMarkdown(json);
-                    } else if ( json.language == 'java') { 
-                        replacement = await processJava(json);
-                    } else if ( json.language == 'yml') { 
-                        replacement = await processYml(json);
-                    } else {
-                        replacement = await fallback(json);
-                    }
-
+                    let replacement = await getReplacement(json);
                     md = md.replace(match[0],replacement);
-
                 } catch (e) {
                     md = md.replace(match[0],'```\n⛔ Error:\n>>>\n'+match[0]+'\n<<<\nfile to inspect not found!\n```');    
                     break;
@@ -41,6 +30,26 @@ async function inspect(md) {
         }
     }
     return md;
+}
+
+async function inspectValue(params) {
+    return await getReplacement(params);
+}
+
+async function getReplacement(json) {
+    let replacement = '';
+    if ( json.language == 'markdown') { 
+        replacement = await processMarkdown(json);
+    } else if ( json.language == 'java') { 
+        replacement = await processJava(json);
+    } else if ( json.language == 'text') { 
+        replacement = await processText(json);
+    } else if ( json.language == 'yml') { 
+        replacement = await processYml(json);
+    } else {
+        replacement = await fallback(json);
+    }
+    return replacement;
 }
 
 async function processMarkdown(inspect) {
@@ -67,6 +76,14 @@ async function processYml(inspect) {
     return '```'+inspect.language+'\n'+code+'\n```';
 }
 
+async function processText(inspect) {
+    let code = await loadFile('/add/'+config().content+'/'+inspect.inspect);
+    if ( inspect.mode && inspect.mode == 'value') {
+        return code.split("\n").slice(inspect.line, inspect.line + 1);
+    } 
+    return code;
+}
+
 async function fallback(inspect) {
     let code = await loadFile('/add/'+config().content+'/'+inspect.inspect);
     return '```'+inspect.language+'\n'+code+'\n```';
@@ -90,4 +107,4 @@ function shiftMarkdownHeadings(markdown, offset) {
   });
 }
 
-export { inspect }
+export { inspect, inspectValue }
