@@ -123,5 +123,14 @@
 
 .toc-page {
     padding-right: 2rem;
+    max-width: 5rem;
+    overflow: hidden;          
+    white-space: nowrap;       
+    text-overflow: ellipsis;   
+    vertical-align: middle; 
 }
     
+.heading-link {
+  font-size: 3px;            
+  _color: transparent;       
+}

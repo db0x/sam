@@ -159,11 +159,17 @@ async function generatePdfToc() {
         page.classList.add('toc-page');
         page.id = 'page_'+id;
 
-        page.innerText = "";
+        page.innerText = '';
         title.append(a);
         wrapper.append(title, page);
         li.appendChild(wrapper);
         toc.appendChild(li);
+
+        const link = document.createElement('span');
+        link.innerText = `[[${id}]]`;
+        link.classList.add('heading-link');
+        heading.append(link);
+
     });
 }
 

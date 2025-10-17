@@ -1,6 +1,21 @@
 import puppeteer from "puppeteer";
 import pdfjsLib from 'pdfjs-dist/legacy/build/pdf.js';
 
+async function findMarkersInPdf(pdf) {
+  const markers = [];
+
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    const textContent = await page.getTextContent();
+    const text = textContent.items.map(item => item.str).join(" ");
+
+    if (text.includes("[[12-glossary]]")) {
+      markers.push({ page: i, tag: "12-glossary" });
+    }
+  }
+  return markers;
+}
+
 async function pdf(req, res) {
       
   const content = req.query.content;
@@ -29,7 +44,10 @@ async function pdf(req, res) {
     const pdfDoc = await loadingTask.promise;
 
     console.log(`Anzahl der Seiten: ${pdfDoc.numPages}`);
-
+    
+    const markers = await findMarkersInPdf(pdfDoc);
+    console.log(markers);
+    
     res.set({
       "Content-Type": "application/pdf",
       "Content-Disposition": "inline; filename="+title+".pdf",
