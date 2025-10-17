@@ -123,6 +123,50 @@ async function generateToc() {
     });
 }
 
+async function generatePdfToc() {
+    const toc = document.getElementById('print-toc');
+    toc.innerHTML = '';
+
+    const selectors = [];
+    for (let i = 1; i <= config().tocDepth; i++) {
+        selectors.push(`#content h${i}`);
+    }
+    const query = selectors.join(', ');
+
+    document.querySelectorAll(query).forEach((heading) => {
+        if (heading.classList.contains("discreet")) {
+            return;
+        }
+        const id = heading.textContent.trim().toLowerCase().replace(/[^\w]+/g, '-');
+        heading.id = id;
+
+        const li = document.createElement('li');
+
+        li.classList.add('pdftoc');
+        li.classList.add(
+            heading.tagName === 'H2' ? 'toc-h2' :
+            heading.tagName === 'H3' ? 'toc-h3' :
+            heading.tagName === 'H4' ? 'toc-h4' : '0');
+
+        const a = document.createElement('a');
+        a.href = '#' + id;
+        a.textContent = heading.textContent.replace(/^\s*\d+\s*-\s*/, "");;
+        const wrapper = document.createElement('span');
+        wrapper.classList.add("toc-wrapper");        
+        const title = document.createElement('span');
+        title.classList.add('toc-title');
+        const page = document.createElement('span');
+        page.classList.add('toc-page');
+        page.id = 'page_'+id;
+
+        page.innerText = "";
+        title.append(a);
+        wrapper.append(title, page);
+        li.appendChild(wrapper);
+        toc.appendChild(li);
+    });
+}
+
 async function generateCover() {
     if ( !config().print.coverPage ) {
         document.getElementById("print-cover").style.display = "none";        
@@ -204,12 +248,15 @@ async function main() {
         
         if ( format == 'pdf') {
             makeSVGResponsive(900);
+            await generateCover();
+            await generatePdfToc();
         } else {
             makeSVGResponsive(1200);
+            await generateCover();
+            await generateToc();
         }
         
-        await generateToc();
-        await generateCover();
+        
     } catch (err) {
         document.getElementById('nav').style.display = 'none';
         document.getElementById('content').innerHTML = `<p>⛔ Error: The content <code>${content}</code> misses configuration or is unknown.</p>`;
@@ -217,6 +264,7 @@ async function main() {
         //return res.status(400).send("miss content");
     }
 }
+
 
 main();
 

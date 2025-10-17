@@ -1,4 +1,5 @@
 import puppeteer from "puppeteer";
+import pdfjsLib from 'pdfjs-dist/legacy/build/pdf.js';
 
 async function pdf(req, res) {
       
@@ -23,12 +24,19 @@ async function pdf(req, res) {
       displayHeaderFooter: false,
     });
 
+    // PDF mit pdf.js laden
+    const loadingTask = pdfjsLib.getDocument({ data: pdf });
+    const pdfDoc = await loadingTask.promise;
+
+    console.log(`Anzahl der Seiten: ${pdfDoc.numPages}`);
+
     res.set({
       "Content-Type": "application/pdf",
       "Content-Disposition": "inline; filename="+title+".pdf",
     });
 
     res.send(pdf);
+ 
   } catch (err) {
     console.error("error create pdf:", err);
     res.status(500).send("error create pdf!");

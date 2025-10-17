@@ -2,6 +2,12 @@
   display: none;
 }
 @media print {
+    h1 {
+        break-before: page;
+    }
+    table {
+        font-size: 0.70rem;
+    }
     .markdown-body {
         background: white;
         box-sizing: border-box;
@@ -9,15 +15,17 @@
         max-width: 900px;
         border-radius: 0px;
         box-shadow: none;
+        font-size: 0.75rem;
+        padding: unset;
     }
     .no-print {
         display: none !important;
     }
     .page-break {
-        page-break-before: always; 
+        page-break-before: always !important; 
     }
     .inline-icon {
-        height: 1.25rem;
+        height: 1rem;
         vertical-align: middle;
     }
     main {
@@ -51,9 +59,8 @@
     }
     #print-cover {
         margin: 0;
-        max-height: 297mm;
-        height: 297mm;
-        page-break-after: always;
+        max-height: 277mm;
+        height: 277mm;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -75,4 +82,46 @@
     #cover-date {
         font-size: small;
     }    
+    #print-toc {
+        margin: 0;
+        background: white;
+        list-style-type: none;
+    }
+    .pdftoc {
+        font-size: 1rem !important;
+    }
+    .toc-h2 {
+        padding-left: 1rem !important;
+        font-size: 0.9rem !important;
+    }
+    .pdftoc a {
+        color: black;
+        text-decoration: none !important;
+    }
+    .print-toc-headline {
+         break-before: avoid;
+    }
+    #print-toc-container {
+        display: inherit !important;
+    }
 }
+
+#print-toc-container {
+    display: none;
+}
+
+.toc-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+.toc-title {
+
+}
+
+.toc-page {
+    padding-right: 2rem;
+}
+    
