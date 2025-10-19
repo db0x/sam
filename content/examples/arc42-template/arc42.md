@@ -1,4 +1,4 @@
-# arc42 Template
+# arc42 Template {discreet}
 
 Based on the template from arc42. There is no better way to summarize the purpose:
 
@@ -8,50 +8,27 @@ The 12 chapters of the template with introductory descriptions are created as `i
 
 Good luck with creating your architectural documentation as it should be!
 
-{page-break}
 
 ![](01-Introduction_and_Goals.md)
 
-{page-break}
-
 ![](02-Architecture_Constraints.md)
-
-{page-break}
 
 ![](03-Context_and_Scope.md)
 
-{page-break}
-
 ![](04-Solution_Strategy.md)
-
-{page-break}
 
 ![](05-Building_Block_View.md)
 
-{page-break}
-
 ![](06-Runtime_View.md)
-
-{page-break}
 
 ![](07-Deployment_View.md)
 
-{page-break}
-
 ![](08-Cross-cutting_Concepts.md)
-
-{page-break}
 
 ![](09-Architecture_Decisions.md)
 
-{page-break}
-
 ![](10-Quality_Requirements.md)
 
-{page-break}
-
 ![](11-Risks_and_Technical_Debts.md)
-
-{page-break}
 
 ![](12-Glossary.md)
