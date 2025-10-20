@@ -6,8 +6,17 @@
         break-before: page;
     }
     table {
-        font-size: 0.70rem;
+        font-size: 1rem !important;
     }
+    tr {
+        page-break-inside: avoid;
+    }
+    thead {
+        display: table-header-group; /* sorgt dafür, dass Kopfzeilen auf jeder Seite wiederholt werden */
+    }
+    tfoot {
+        display: table-footer-group;
+    } 
     .markdown-body {
         background: white;
         box-sizing: border-box;
@@ -15,7 +24,7 @@
         max-width: 900px;
         border-radius: 0px;
         box-shadow: none;
-        font-size: 0.75rem;
+        font-size: 1rem !important;
         padding: unset;
     }
     .no-print {
@@ -39,7 +48,7 @@
         @bottom-center {
             content: "Page " counter(page) " of " counter(pages);
             font-family: Arial, sans-serif;
-            font-size: 0.5rem;
+            font-size: 0.6rem;
         }
     }     
     @page:first {
@@ -132,5 +141,5 @@
     
 .heading-link {
   font-size: 0.1px;            
-  color: transparent;       
+  color: white;       
 }

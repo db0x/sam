@@ -1,6 +1,7 @@
 import express from "express";
 import { pdf } from "./export/pdf.js";
 import { zip } from "./export/zip.js";
+import { log } from "./export/log.js";
 
 export const app = express();
 
@@ -12,4 +13,4 @@ app.get("/zip", async (req, res) => {
   await zip(req, res);
 });
 
-app.listen(3000, () => console.log("⚙️ puppeteer pdf-render runs"));
+app.listen(3000, () => log(" ⚙️  puppeteer pdf-render/zip-export is up"));
