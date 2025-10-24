@@ -46,7 +46,7 @@
         margin: 20mm; 
 
         @bottom-center {
-            content: "Page " counter(page) " of " counter(pages);
+            content: "- " counter(page) " -";
             font-family: Arial, sans-serif;
             font-size: 0.6rem;
         }
@@ -126,9 +126,7 @@
     flex-wrap: nowrap;
 }
 
-.toc-title {
-
-}
+.toc-title {}
 
 .toc-page {
     padding-right: 2rem;
