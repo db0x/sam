@@ -2,7 +2,7 @@
 participant Alice
 participant Bob
 
-Alice -> Bob : helloBob()
+Alice -> Bob : helloBob( ä ö ü )
 activate Bob
 Bob -> Alice : helloAlice()
 deactivate Bob

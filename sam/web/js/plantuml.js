@@ -4,7 +4,7 @@ import { config } from './config.js';
 async function renderPlantUML(umlText, server = config.plantUML.server) {
     const res = await fetch(server, {
         method: "POST",
-        headers: { "Content-Type": "text/plain" },
+       headers: { "Content-Type": "text/plain; charset=UTF-8" },
         body: umlText
       });
 
