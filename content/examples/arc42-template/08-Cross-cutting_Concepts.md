@@ -4,4 +4,4 @@
 
 ![concepts](assets/08-concepts-EN.drawio.svg)
 
-[source arc42.org](https://docs.arc42.org/section-8/)
+[arc42 section 8](https://docs.arc42.org/section-8/)

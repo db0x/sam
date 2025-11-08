@@ -6,7 +6,7 @@
 
 ![building block hierarchy](assets/05-building-block-hierarchy.png)
 
-[source arc42.org](https://docs.arc42.org/section-5/)
+[arc42 section 5](https://docs.arc42.org/section-5/)
 
 ## 5.1 Whitebox Overall System 
 

@@ -79,6 +79,10 @@ async function render(md) {
 
     full = await inspect(full);
     
+    if ( format == 'pdf') {
+        full = await generateReferences(full);    
+    }
+    
     const html = marked.parse(full);    
 
     document.getElementById('content').innerHTML = html;    
@@ -121,6 +125,58 @@ async function generateToc() {
         li.appendChild(a);
         toc.appendChild(li);
     });
+}
+
+async function generateReferences(md) {
+    const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
+    const headingRegex = /^(#{1,6})\s+([\d.]+\s+)?(.+)/gm;
+
+    const matches = [...md.matchAll(linkRegex)];
+    if (matches.length === 0) return md;
+
+    const unique = Array.from(
+        new Map(matches.map(m => [m[2], { text: m[1], url: m[2] }])).values()
+    );
+
+    const linkNumbers = new Map(unique.map((l, i) => [l.url, i + 1]));
+
+    let processed = md.replace(linkRegex, (full, text, url) => {
+        const num = linkNumbers.get(url);
+        return `[${text}](${url})<sup>[${num}]</sup>`;
+    });
+
+    let lastNumber = null;
+    let lastLevel = 1;
+
+    for (const match of md.matchAll(headingRegex)) {
+        const hashes = match[1].length;
+        const num = match[2]?.trim();
+
+        if (num && /^[\d.]+$/.test(num)) {
+        lastLevel = hashes;
+        lastNumber = num;
+        }
+    }
+
+    let heading = '# References';
+    if (lastNumber) {
+        const parts = lastNumber.split('.').map(Number);
+        parts[parts.length - 1]++;
+        const nextNum = parts.join('.');
+        heading = `${'#'.repeat(lastLevel)} ${nextNum} References`;
+    }
+
+    const refs = [
+        '',
+        heading,
+        '',
+        ...unique.map(
+        (l, i) => `> [${i + 1}] ${l.text} — ${l.url}<br>`
+        ),
+        ''
+    ].join('\n');
+
+    return processed + refs;
 }
 
 async function generatePdfToc() {
